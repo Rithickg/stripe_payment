@@ -9,28 +9,28 @@ export const Payment = () => {
   const [stripePromise, setStripePromise] = useState(null);
   const [clientSecret, setClientSecret] = useState("");
 
-  useEffect(() => { 
-    const getPublishableData =async()=>{
+  useEffect(() => {
+    const getPublishableData = async () => {
       try {
         const res = await axios.get("http://localhost:2002/config")
         const publishableKey = res.data.publishableKey
         setStripePromise(loadStripe(publishableKey));
-    
+
       } catch (error) {
-        console.log("Error",error)
+        console.log("Error", error)
       }
     }
     getPublishableData()
   }, []);
 
   useEffect(() => {
-    const getSecretData =async()=>{
+    const getSecretData = async () => {
       try {
         const res = await axios.post("http://localhost:2002/create-payment-intent")
         const clientSecret = res.data.clientSecret
         setClientSecret(clientSecret)
       } catch (error) {
-        console.log("Error",error)
+        console.log("Error", error)
       }
     }
     getSecretData()
