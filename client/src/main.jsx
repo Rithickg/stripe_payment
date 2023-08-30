@@ -2,21 +2,26 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import {createBrowserRouter,RouterProvider} from "react-router-dom";
-import {Payment} from './component/payment/Payment.jsx'
-import {Completion} from './component/payment/Completion.jsx'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { Payment } from './component/payment/Payment.jsx'
+import { Completion } from './component/payment/Completion.jsx'
+import { Subscription } from './component/Subscription/Subscription.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>
+    element: <App />
   },
   {
     path: "/payment",
-    element: <Payment/>,
+    element: <Payment />,
   },
   {
-    path:"/completion",
+    path: "/subscription",
+    element: <Subscription />,
+  },
+  {
+    path: "/completion",
     element: <Completion />
   }
 ]);

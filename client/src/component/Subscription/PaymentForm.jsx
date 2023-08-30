@@ -1,12 +1,17 @@
+/* eslint-disable react/prop-types */
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { useState } from "react"
+import { useNavigate } from 'react-router-dom'
 
-export const PaymentForm = () => {
+export const PaymentForm = ({ planDetail }) => {
     const stripe = useStripe()
     const elements = useElements()
+    const navigate = useNavigate()
 
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
+    const plan = planDetail.plan
+    console.log("plan", plan)
 
     const handleSubscription = async () => {
         try {
@@ -22,10 +27,11 @@ export const PaymentForm = () => {
                 body: JSON.stringify({
                     name,
                     email,
+                    plan,
                     paymentMethod: paymentMethod.paymentMethod.id,
                 })
             })
-
+            console.log("payment response", res)
             if (!res.ok) {
                 return alert('Payment unsuccessful')
             }
@@ -34,6 +40,7 @@ export const PaymentForm = () => {
             if (confirm.error) {
                 return alert('Payment unsuccessful')
             }
+            navigate('/completion', { replace: true })
             alert('Payment successful, subscription active')
         } catch (error) {
             console.log("Error", error)

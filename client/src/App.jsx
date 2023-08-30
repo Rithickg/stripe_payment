@@ -1,12 +1,10 @@
 import './App.css'
-import { Subscription } from './component/Subscription/Subscription'
-// import { Payment } from './component/payment/Payment'
+import { SubscriptionPlan } from './component/SubscriptionPlan/SubscriptionPlan'
 
 function App() {
   return (
     <>
-      {/* <Payment /> */}
-      <Subscription />
+      <SubscriptionPlan />
     </>
   )
 }
