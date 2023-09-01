@@ -1,56 +1,23 @@
-import schedule from 'node-schedule'
-import nodemailer from 'nodemailer';
-import axios from 'axios'
+import amqplib from 'amqplib'
+import { sendMails } from '../services/sendEmail.js'
+// const queueName = "SubscriptionEmail"
 
-export const getData = async () => {
-    const res = await axios.get("http://localhost:2002/api/subscription/user")
-    const user = res.data.User
-    const emails = []
-    user.map((data) => {
-        emails.push(data.email)
+export const receiveMessage = async (queueName) => {
+    const connection = await amqplib.connect('amqp://localhost')
+    const channel = await connection.createChannel()
+    await channel.assertQueue(queueName, {
+        durable: true
     })
-    console.log("emails", emails)
-    console.log(res.data.User)
-    return emails;
+    console.log("Waiting for the messages in queue :", queueName)
+    channel.prefetch(1)
+    channel.consume(queueName, async (msg) => {
+        // const secs = msg.content.toString().split('.').length - 1
+        console.log("Received:", msg.content.toString())
+        await sendMails(msg.content.toString())
+        console.log("Email sent to:", msg.content.toString())
+        setTimeout(() => {
+            console.log("Done the work process")
+            channel.ack(msg)
+        }, 1000)
+    }, { noAck: false })
 }
-// getData()
-
-
-const emailSubscribe = async (req, res) => {
-}
-export const sendMails = () => {
-    const emails = getData()
-
-    const gmail = process.env.gmail
-    const gmail_pass = process.env.gmail_pass
-
-    const transporter = nodemailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: gmail,
-            pass: gmail_pass
-        }
-    })
-    const message = {
-        from: gmail,
-        // to: emails.toString(),
-        to: "rithickg567@gmail.com, rithick2812@gmail.com",
-        subject: "Subscription alert!",
-        text: "Testing Subscription using Nodemailer",
-        html: "<b>Welcome to the store with your new subscription</b>",
-    }
-
-    transporter.sendMail(message, (err) => {
-        if (err) {
-            console.log("Error", err)
-        } else {
-            console.log("Email sent!")
-        }
-    })
-    console.log("Success")
-}
-
-
-export default { emailSubscribe }
-
-// const rule = new schedule.RecurrenceRule()

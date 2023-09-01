@@ -3,8 +3,8 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import mongoose from 'mongoose'
 import schedule from 'node-schedule'
-import { getData, sendMails } from './microservices/email.js'
-
+import { getData, sendMails } from './services/sendEmail.js'
+import { receiveMessage } from './microservices/email.js'
 import emailRoute from './routes/email.js'
 // import job from './microservices/email.js'
 
@@ -19,27 +19,21 @@ mongoose.connect(process.env.MONGO_URL, {
 })
     .then(console.log("Connected to Mongodb Application..."))
     .catch((err) => console.log(err))
-const connection = mongoose.connection
+// const connection = mongoose.connection
 // const collection = connection.db.collection()
 
 const port = process.env.PORT
 
 app.use('/api', emailRoute);
-const sendEmailsDaily = () => {
-    try {
-        // Code to send emails using a mailer library (e.g., nodemailer)
-        // Implement your email sending logic here
-        console.log('Sending emails:');
-    } catch (error) {
-        console.error('Error sending emails:', error);
-    }
-};
 
 // getData()
 // sendMails()
-// schedule.scheduleJob(' * * * * *', sendEmailsDaily)
 // Schedule to send mail every one minute - for testing
 // schedule.scheduleJob(' * * * * *', sendMails)
+
+receiveMessage("SubscriptionEmail")
+
+
 
 
 

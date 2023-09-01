@@ -6,6 +6,7 @@ import mongoose from 'mongoose'
 import User from './models/User.js'
 // import paymentRoute from './routes/payment.js'
 import userRoute from './routes/user.js'
+import { sendMessage } from './microservices/subscriptionEmail.js'
 
 
 const app = express();
@@ -34,30 +35,6 @@ app.get("/config", (req, res) => {
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
 });
-
-// app.post("/create-payment-intent", async (req, res) => {
-//   try {
-//     const paymentIntent = await stripe.paymentIntents.create({
-//       currency: "EUR",
-//       amount: 19,
-//       // payment_method: 'card',
-//       payment_method_types: ['card']
-//       // automatic_payment_methods: { enabled: true },
-//     });
-
-//     // Send publishable key and PaymentIntent details to client
-//     res.status(200).json({
-//       clientSecret: paymentIntent.client_secret,
-//     });
-//   } catch (error) {
-//     console.log("Error", error)
-//     res.status(400).json({
-//       error: {
-//         message: error.message,
-//       },
-//     });
-//   }
-// });
 
 
 app.post("/subscription", async (req, res) => {
@@ -118,6 +95,7 @@ app.post("/subscription", async (req, res) => {
     })
 
     const saveSubscription = await newSubscription.save()
+    await sendMessage("SubscriptionEmail", email)
     console.log("saveSubs", saveSubscription)
 
     // Send back the client secret
@@ -134,6 +112,7 @@ app.post("/subscription", async (req, res) => {
 })
 
 app.use('/api', userRoute);
+
 
 const port = process.env.PORT
 
