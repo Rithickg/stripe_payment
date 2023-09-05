@@ -30,7 +30,7 @@ const stripe = new Stripe(stripe_secret, {
 
 
 
-app.get("/config", (req, res) => {
+app.post("/config", (req, res) => {
   res.status(200).json({
     publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   });
@@ -91,7 +91,8 @@ app.post("/subscription", async (req, res) => {
       email: email,
       plan: plan,
       customerId: customer.id,
-      subscriptionId: subscription.id
+      subscriptionId: subscription.id,
+      subscriptionStatus: 'active'
     })
 
     const saveSubscription = await newSubscription.save()
@@ -105,6 +106,54 @@ app.post("/subscription", async (req, res) => {
       subscriptionId: subscription.id,
     })
 
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" })
+  }
+})
+
+//Cancel Subscription 
+app.post('/subscription/cancel', async (req, res) => {
+  try {
+    const { userId } = req.body
+    const user = await User.findById(userId)
+    console.log('user', user)
+    const subscriptionId = user.subscriptionId
+    console.log('subscriptionId', subscriptionId)
+
+    if (user) {
+      const deleted = await stripe.subscriptions.cancel(subscriptionId);
+      const updateUser = await User.findByIdAndUpdate(userId, { $set: { subscriptionStatus: "inactive" } }, { new: true })
+      res.json({
+        message: "Subscription Cancelled!",
+        user: updateUser,
+        deleted
+      })
+    } else {
+      res.status(500).json({ message: "User not found or Subscription not available" })
+
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Internal server error" })
+  }
+
+})
+
+app.post('/payment', async (req, res) => {
+  try {
+    // const { amount } = req.body;
+    const amount = 4000
+    const payment = await stripe.paymentIntents.create({
+      amount,
+      currency: 'INR',
+      payment_method_types: ['card']
+    })
+    const clientSecret = payment.client_secret;
+    res.json({
+      clientSecret,
+      message: "Payment initiated successfully!"
+    })
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal server error" })

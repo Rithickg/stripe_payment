@@ -2,14 +2,10 @@ import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios'
-import { PaymentForm } from "./PaymentForm";
-import { useLocation } from "react-router-dom";
+import { Checkout } from "./Checkout";
 
 
-export const Subscription = () => {
-    const location = useLocation()
-    const planDetail = location.state
-    console.log("location", location)
+export const CheckoutElement = () => {
     const [stripePromise, setStripePromise] = useState(null);
 
     useEffect(() => {
@@ -17,6 +13,7 @@ export const Subscription = () => {
             try {
                 const res = await axios.post("http://localhost:2002/config")
                 const publishableKey = res.data.publishableKey
+                // console.log("key", publishableKey)
                 setStripePromise(loadStripe(publishableKey));
 
             } catch (error) {
@@ -33,7 +30,7 @@ export const Subscription = () => {
 
             {stripePromise && (
                 <Elements stripe={stripePromise} >
-                    <PaymentForm planDetail={planDetail} />
+                    <Checkout />
                 </Elements>
             )}
         </>

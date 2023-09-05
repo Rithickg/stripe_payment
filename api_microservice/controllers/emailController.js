@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer';
-import { getData } from '../services/sendEmail.js';
+// import { getData } from '../services/sendEmail.js';
 
 const emailSubscribe = async (req, res) => {
 

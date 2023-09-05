@@ -2,11 +2,11 @@ import express from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
 import mongoose from 'mongoose'
-import schedule from 'node-schedule'
-import { getData, sendMails } from './services/sendEmail.js'
 import { receiveMessage } from './microservices/email.js'
 import emailRoute from './routes/email.js'
-// import job from './microservices/email.js'
+import { scheduleEmail } from './services/scheduleEmail.js'
+
+
 
 const app = express();
 app.use(express.json())
@@ -26,13 +26,10 @@ const port = process.env.PORT
 
 app.use('/api', emailRoute);
 
-// getData()
-// sendMails()
-// Schedule to send mail every one minute - for testing
-// schedule.scheduleJob(' * * * * *', sendMails)
 
+//Scheduled email to send at every 30 minutes
+// scheduleEmail()
 receiveMessage("SubscriptionEmail")
-
 
 
 

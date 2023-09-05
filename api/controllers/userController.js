@@ -5,7 +5,7 @@ const subscription_user = async (req, res) => {
     try {
         const user = await User.find()
         if (!user) {
-            res.status(401).json({ message: "No User Foundyu76" });
+            res.status(401).json({ message: "No User Found" });
             return;
         } else {
             res.json({ User: user });

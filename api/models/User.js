@@ -22,6 +22,10 @@ const UserSchema = new mongoose.Schema({
     subscriptionId: {
         type: String,
         required: true
+    },
+    subscriptionStatus: {
+        type: String,
+        required: true
     }
 }, { timestamps: true })
 
