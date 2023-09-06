@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios'
-import { PaymentForm } from "./PaymentForm";
+import { SubscriptionForm } from "./SubscriptionForm";
 import { useLocation } from "react-router-dom";
 
 
@@ -33,7 +33,7 @@ export const Subscription = () => {
 
             {stripePromise && (
                 <Elements stripe={stripePromise} >
-                    <PaymentForm planDetail={planDetail} />
+                    <SubscriptionForm planDetail={planDetail} />
                 </Elements>
             )}
         </>

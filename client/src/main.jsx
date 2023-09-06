@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Payment } from './component/payment/Payment.jsx'
-import { Completion } from './component/payment/Completion.jsx'
+import { CheckoutCompletion } from './component/Checkout/CheckoutCompletion.jsx';
+import { Checkout } from './component/Checkout/Checkout.jsx';
+import { SubscriptionPlan } from './component/SubscriptionPlan/SubscriptionPlan.jsx';
 import { Subscription } from './component/Subscription/Subscription.jsx';
+import { SubscriptionCompletion } from './component/Subscription/SubscriptionCompletion.jsx';
 
 const router = createBrowserRouter([
   {
@@ -13,16 +15,24 @@ const router = createBrowserRouter([
     element: <App />
   },
   {
-    path: "/payment",
-    element: <Payment />,
+    path: "/pricing",
+    element: <SubscriptionPlan />,
   },
   {
-    path: "/subscription",
-    element: <Subscription />,
+    path: '/subscription',
+    element: <Subscription />
   },
   {
-    path: "/completion",
-    element: <Completion />
+    path: '/subscription-completion',
+    element: <SubscriptionCompletion />
+  },
+  {
+    path: "/checkout",
+    element: <Checkout />
+  },
+  {
+    path: "/checkout-completion",
+    element: <CheckoutCompletion />
   }
 ]);
 

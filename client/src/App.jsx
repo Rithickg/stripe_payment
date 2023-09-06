@@ -1,12 +1,10 @@
 import './App.css'
-import { CheckoutElement } from './component/Checkout/CheckoutElement'
-import { SubscriptionPlan } from './component/SubscriptionPlan/SubscriptionPlan'
+import { HomePage } from './component/HomePage/HomePage'
 
 function App() {
   return (
     <>
-      <SubscriptionPlan />
-      <CheckoutElement />
+      <HomePage />
     </>
   )
 }
