@@ -2,8 +2,10 @@ import { useEffect, useState } from "react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import axios from 'axios'
+import './subscription.css'
 import { SubscriptionForm } from "./SubscriptionForm";
 import { useLocation } from "react-router-dom";
+import Img from '../../assets/poster.jpg'
 
 
 export const Subscription = () => {
@@ -28,15 +30,17 @@ export const Subscription = () => {
 
 
     return (
-        <>
-            <h1>React Stripe and the Payment Element</h1>
-
+        <div style={{
+            backgroundImage: `url(${Img})`, backgroundPosition: 'center',
+            backgroundSize: 'cover',
+            backgroundRepeat: 'no-repeat',
+        }} className="subscription">
             {stripePromise && (
                 <Elements stripe={stripePromise} >
                     <SubscriptionForm planDetail={planDetail} />
                 </Elements>
             )}
-        </>
+        </div>
     );
 }
 

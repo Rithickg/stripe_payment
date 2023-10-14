@@ -2,6 +2,7 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js"
 import { useState } from "react"
 import { useNavigate } from 'react-router-dom'
+import "./subscriptionForm.css"
 
 export const SubscriptionForm = ({ planDetail }) => {
     const stripe = useStripe()
@@ -40,7 +41,7 @@ export const SubscriptionForm = ({ planDetail }) => {
             if (confirm.error) {
                 return alert('Payment unsuccessful')
             }
-            navigate('/completion', { replace: true })
+            navigate('/subscription-completion', { replace: true })
             alert('Payment successful, subscription active')
         } catch (error) {
             console.log("Error", error)
@@ -49,15 +50,18 @@ export const SubscriptionForm = ({ planDetail }) => {
     }
 
     return (
-        <div>
-            <h1>PaymentForm</h1>
-            <div>
-                <label htmlFor="name">Name:</label>
-                <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} />
-                <label htmlFor="email">Email:</label>
-                <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                <div>
-                    <CardElement />
+        <div className="subscription-form">
+            <h1 className="subscription-form-title">Subscription Plan : {plan.toUpperCase()}</h1>
+            <h2 className="subscription-form-title">Enter Payment Details</h2>
+            <div className="payment-form">
+                <label htmlFor="name" className="form-label">Name:</label>
+                <input type="text" id="name" className="form-input" value={name} onChange={(e) => setName(e.target.value)} />
+                <label htmlFor="email" className="form-label">Email:</label>
+                <input type="email" id="email" className="form-input" value={email} onChange={(e) => setEmail(e.target.value)} />
+                <label htmlFor="email" className="form-label">Card Details:</label>
+
+                <div className="card-element">
+                    <CardElement className="card" />
                 </div>
                 <button onClick={handleSubscription}>Subscribe</button>
             </div>

@@ -8,11 +8,13 @@ import { Checkout } from './component/Checkout/Checkout.jsx';
 import { SubscriptionPlan } from './component/SubscriptionPlan/SubscriptionPlan.jsx';
 import { Subscription } from './component/Subscription/Subscription.jsx';
 import { SubscriptionCompletion } from './component/Subscription/SubscriptionCompletion.jsx';
+import { ErrorPage } from './component/ErrorPage/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />
+    element: <App />,
+    errorElement: <ErrorPage />
   },
   {
     path: "/pricing",

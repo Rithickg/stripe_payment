@@ -1,0 +1,53 @@
+.subscription-form {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    background-color: black;
+    backdrop-filter: blur(2px);
+}
+
+.subscription-form-title {
+    text-align: center;
+}
+
+.payment-form {
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+    text-align: start;
+    flex-direction: column;
+    color: black;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-input {
+    /* width: 100%; */
+    width: 350px;
+    padding: 10px;
+    margin-top: 3px;
+    color: black;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.card-element {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 370px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: white;
+    color: black;
+
+}
+
+.card {
+    width: 370px;
+}
