@@ -4,17 +4,30 @@
     text-align: center;
     align-items: center;
     background-color: black;
+    border: 2px solid white;
+    border-radius: 5%;
+    padding: 10px;
     backdrop-filter: blur(2px);
+}
+
+.order {
+    padding: 5px;
+    width: 100%;
+    border-bottom: 1px solid white;
+}
+
+.order-title {
+    color: #ff0000;
 }
 
 .subscription-form-title {
     text-align: center;
+    color: #ff0000;
 }
 
 .payment-form {
     display: flex;
     justify-content: center;
-    /* align-items: center; */
     text-align: start;
     flex-direction: column;
     color: black;
@@ -25,7 +38,6 @@
 }
 
 .form-input {
-    /* width: 100%; */
     width: 350px;
     padding: 10px;
     margin-top: 3px;
@@ -50,4 +62,30 @@
 
 .card {
     width: 370px;
+}
+
+@media (max-width: 768px) {
+    .subscription-form {
+        width: fit-content;
+    }
+
+    .form-input {
+        min-width: 250px;
+        max-width: 300px;
+
+    }
+
+    .card {
+        min-width: 250px;
+        max-width: 300px;
+
+        /* width: 280px; */
+    }
+
+    .card-element {
+        min-width: 250px;
+        max-width: 300px;
+
+        /* width: 280px; */
+    }
 }

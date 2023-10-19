@@ -12,6 +12,7 @@ export const SubscriptionForm = ({ planDetail }) => {
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
     const plan = planDetail.plan
+    const price = planDetail.price
     console.log("plan", plan)
 
     const handleSubscription = async () => {
@@ -51,8 +52,13 @@ export const SubscriptionForm = ({ planDetail }) => {
 
     return (
         <div className="subscription-form">
-            <h1 className="subscription-form-title">Subscription Plan : {plan.toUpperCase()}</h1>
-            <h2 className="subscription-form-title">Enter Payment Details</h2>
+            <div className="order">
+                <h2 className="order-title">Order Summary</h2>
+                <h3>Billing Plan</h3>
+                <h4>Selected Plan: {plan.toUpperCase()}</h4>
+                <h4>Billed : &#8377;{price}<sub>/monthly</sub> </h4>
+            </div>
+            <h3 className="subscription-form-title">Enter Payment Details</h3>
             <div className="payment-form">
                 <label htmlFor="name" className="form-label">Name:</label>
                 <input type="text" id="name" className="form-input" value={name} onChange={(e) => setName(e.target.value)} />

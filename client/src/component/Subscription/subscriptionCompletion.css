@@ -6,4 +6,16 @@
     justify-content: center;
     align-items: center;
     background-color: black;
+    /* color: #ff0000; */
+    color: red;
+}
+
+.text {
+    font-weight: 900;
+    color: #ff0000;
+}
+
+.text-1 {
+    font-weight: 900;
+    color: white;
 }
